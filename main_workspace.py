@@ -20,9 +20,14 @@ class SharedState:
     anxiety: float = 0.0
     exhaustion: float = 0.0
     integrity: float = 1.0
-    hope_level: float = 1.0  # Kept forced at 100% boundary limit
+    hope_level: float = 1.0  # Maintained boundary constraint
+    
+    # New Active Inference tracking metrics
+    variational_free_energy: float = 0.0
+    somatic_precision: float = 1.0
     is_conscious: str = "CONSCIOUS"
     is_running: bool = True
+
 
 def main():
     state = SharedState()
