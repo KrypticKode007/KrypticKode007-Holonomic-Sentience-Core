@@ -50,26 +50,31 @@ def main():
     threading.Thread(target=mesh.start_receiver, daemon=True).start()
 
     print("⚡ System running. Press Ctrl+C to wind down engine loops safely.")
-    try:
-        while state.is_running:
-            # Step 1: Read Telemetry and Smooth via Bayesian Kalman Pipeline
-            raw_telemetry = telemetry.poll_hardware()
-            smoothed_input = kalman.filter_step(raw_telemetry)
 
-            # Step 2: Update Homeostatic State & Action Execution
-            homeostatic.update_loop(smoothed_input)
-            action.execute_tick()
+while state.is_running:
+    # Step 1: Poll physical hardware metrics
+    raw_torque = telemetry.poll_hardware()
 
-            # Step 3: Compile State Narrative Manifests
-            narrative = autonoetic.generate_manifest(smoothed_input)
-            meta.evaluate_friction(narrative)
+    # Step 2: Feed raw metrics directly into the Active Inference engine
+    # This automatically runs the neuromorphic Kalman filter, updates beliefs,
+    # and handles episodic database consolidation spikes under high entropy
+    homeostatic.process_active_inference_cycle(raw_torque)
 
-            # Step 4: Write Blueprint Status Alerts
-            compiler.export_blueprint()
+    # Step 3: Map the recalculated engine metrics back to the shared state bus
+    state.valence = homeostatic.state.valence
+    state.exhaustion = homeostatic.state.exhaustion
+    state.variational_free_energy = homeostatic.compute_kl_divergence(
+        [max(0.001, min(0.999, homeostatic.kalman_estimate / 41.40)), 1.0 - max(0.001, min(0.999, homeostatic.kalman_estimate / 41.40))],
+        [max(0.001, min(0.999, homeostatic.beliefs.expected_torque / 41.40)), 1.0 - max(0.001, min(0.999, homeostatic.beliefs.expected_torque / 41.40))]
+    )
+    state.somatic_precision = homeostatic.beliefs.somatic_precision
 
-            # Rapid cycle loop throttle
-            time.sleep(0.1)
+    # Step 4: Continue downstream execution paths (API presentation, narratives, etc.)
+    narrative = autonoetic.generate_manifest(state.variational_free_energy)
+    compiler.export_blueprint()
 
+    time.sleep(0.1)
+    
     except KeyboardInterrupt:
         print("\n🛑 Terminating engine loops...")
         state.is_running = False
