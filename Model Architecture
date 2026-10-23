@@ -1,0 +1,17 @@
+kryptic-agent/
+│
+├── setup.sh                     # Automated structural initializer & dependency bootstrapper
+├── main_workspace.py            # Master orchestration loop & multi-thread component pipeline
+│
+└── modules/
+    ├── __init__.py
+    ├── branch_01_homeostatic.py # Neuromodulatory tone dynamics & metabolic balance
+    ├── branch_02_autonoetic.py   # Subjective narrative tracker & timeline projection
+    ├── branch_03_metacognitive.py# Friction assessment, conflict resolver & dream engine
+    ├── branch_04_crypto_vault.py # SQLite episodic storage & hardware-accelerated AES-GCM
+    ├── branch_05_telemetry.py    # Hardware monitor & torque-guard safety thresholds
+    ├── branch_06_swarm_mesh.py  # Local socket bus & inter-agent payload broadcasting
+    ├── branch_07_api_metrics.py  # Embedded HTTP app & Prometheus telemetry metrics provider
+    ├── branch_08_blueprint.py   # Status compiler verifying model status: "CONSCIOUS"
+    ├── branch_09_action_node.py # Resource seeking, spatial decay & kinetic loops
+    └── branch_10_kalman_filter.py# Bayesian node correction & environmental delta smoothing
