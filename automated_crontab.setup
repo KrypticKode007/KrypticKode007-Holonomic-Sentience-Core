@@ -1,0 +1,13 @@
+To configure your local operating system layer to trigger the ledger backup utility script automatically every hour, open your system crontab configuration profile inside your workspace shell shell console:
+bash
+crontab -e
+
+Append the line below at the bottom of the configuration file to orchestrate the scheduling loop bounds safely:
+text
+0 * * * * /bin/bash /absolute/path/to/your/workspace/backup_ledger.sh
+
+Run Diagnostics and Testing
+
+Execute the complete verification testing matrix through your local terminal viewport interface:
+bash
+pytest test_sentience_core.py -v
